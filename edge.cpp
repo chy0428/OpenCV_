@@ -27,8 +27,7 @@ Mat get_VertSobelKernel() {
 	return kernel;
 }
 
-void Sobel_edges(char* name)
-{
+void Sobel_edges(char* name) {
 	Mat img = imread(name, 0);
 	Mat deriv_X, deriv_Y;
 	imshow("org", img);
@@ -43,8 +42,7 @@ void Sobel_edges(char* name)
 	waitKey(0);
 }
 
-void Scharr_edges(char* name)
-{
+void Scharr_edges(char* name) {
 	Mat img = imread(name, 0);
 	Mat deriv_X, deriv_Y;
 	imshow("org", img);
@@ -76,8 +74,7 @@ void thresholdGradientMag(Mat& mag, Mat& edges, int threshold) {
 				edges.at<uchar>(i, j) = 255;
 }
 
-void Sobel_Magnitudes(char* name)
-{
+void Sobel_Magnitudes(char* name) {
 	Mat img = imread(name, 0);
 	Mat dev_X, dev_Y, edges;
 	imshow("org", img);
@@ -91,8 +88,7 @@ void Sobel_Magnitudes(char* name)
 	waitKey(0);
 }
 
-void Canny_edges(char* name)
-{
+void Canny_edges(char* name) {
 	Mat img = imread(name, 0);
 	if (img.empty())
 		return;
@@ -110,29 +106,26 @@ static Mat input_img, edge_img;
 static const char* win_name = "Canny";
 static int lowThreshold, highThreshold;
 
-void CannyThreshold(int, void*)
-{
+void CannyThreshold(int, void*) {
 	Canny(input_img, edge_img, lowThreshold, highThreshold, 3);
 	imshow(win_name, edge_img);
 }
 
-void Canny_test_thresholds(char* name)
-{
+void Canny_test_thresholds(char* name) {
 	input_img = imread(name, 0);
 
 	edge_img.create(input_img.size(), input_img.type());
 
 	GaussianBlur(input_img, input_img, Size(3, 3), 10, 10);
 
-	//	namedWindow(win_name, CV_WINDOW_AUTOSIZE);
+
 	namedWindow(win_name, WINDOW_AUTOSIZE);
 	createTrackbar("Threshold1", win_name, &lowThreshold, 200, CannyThreshold);
 	createTrackbar("Threshold2", win_name, &highThreshold, 255, CannyThreshold);
 	waitKey(0);
 }
 
-void noisy_Canny(char* name)
-{
+void noisy_Canny(char* name) {
 	Mat dst;
 	Mat img = imread(name, IMREAD_GRAYSCALE);
 	imshow("input", img);
@@ -150,8 +143,7 @@ void noisy_Canny(char* name)
 		imwrite("noisy.tif", dst);
 }
 
-void Laplacian_Test(char* name)
-{
+void Laplacian_Test(char* name) {
 	Mat dst;
 	Mat img = imread(name, IMREAD_GRAYSCALE);
 
@@ -162,7 +154,6 @@ void Laplacian_Test(char* name)
 	waitKey(0);
 
 }
-
 
 int main() {
 	Mat dst;
