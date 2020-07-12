@@ -4,19 +4,19 @@ using namespace std;
 using namespace cv;
 
 int main() {
-    Mat img = imread("images/Tangram/bird.png", IMREAD_COLOR);
+    Mat img = imread("images/Fig04_house.tif", IMREAD_COLOR);
 
 	if (img.empty()) {
 		cout << "Cannot read image" << endl;
 		waitKey(0);
-		return;
+		return -1;
 	}
-
+    imshow("Original", img);
 	Mat gray;
 	cvtColor(img, gray, COLOR_BGR2GRAY);
 
 	Mat edge;
-	GaussianBlur(gray, gray, Size(3, 3), 2);
+	GaussianBlur(gray, gray, Size(3, 3), 3);
 	Canny(gray, edge, 60, 150, 3);
 	imshow("edges", edge);
 	
@@ -30,8 +30,5 @@ int main() {
 	}
 
 	imshow("Lines", img);
-	imshow("Original", gray);
-	
     waitKey(0);
-	destroyAllWindows();
 }
